@@ -1,0 +1,118 @@
+---
+export interface Props {
+  lang: 'uk' | 'ru';
+}
+const { lang } = Astro.props;
+
+const nav = lang === 'uk' ? {
+  home: { href: '/', label: 'Головна' },
+  about: { href: '/about-school/', label: 'Про школу' },
+  how: { href: '/how-it-happens/', label: 'Як відбувається' },
+  me: { href: '/about-me/', label: 'Про мене' },
+  faq: { href: '/faq/', label: 'Часті питання' },
+  blog: { href: '/blog/', label: 'Блог' },
+  cta: 'Записатися',
+} : {
+  home: { href: '/ru/', label: 'Главная' },
+  about: { href: '/ru/about-school/', label: 'О школе' },
+  how: { href: '/ru/how-it-happens/', label: 'Как проходит' },
+  me: { href: '/ru/about-me/', label: 'Обо мне' },
+  faq: { href: '/ru/faq/', label: 'Частые вопросы' },
+  blog: { href: '/ru/blog/', label: 'Блог' },
+  cta: 'Записаться',
+};
+
+// TODO: заменить на реальную ссылку на форму записи
+const ctaUrl = 'https://forms.gle/your-form-id';
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a href={nav.home.href} class="brand">
+      <span class="brand-name">Dutch Harbor</span>
+      <span class="brand-sub">{lang === 'uk' ? 'Школа нідерландської' : 'Школа нидерландского'}</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main">
+      <a href={nav.about.href}>{nav.about.label}</a>
+      <a href={nav.how.href}>{nav.how.label}</a>
+      <a href={nav.me.href}>{nav.me.label}</a>
+      <a href={nav.faq.href}>{nav.faq.label}</a>
+      <a href={nav.blog.href}>{nav.blog.label}</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switch">
+        <a href="/" class={lang === 'uk' ? 'active' : ''} hreflang="uk">UA</a>
+        <a href="/ru/" class={lang === 'ru' ? 'active' : ''} hreflang="ru">RU</a>
+      </div>
+      <a href={ctaUrl} class="btn btn--primary" target="_blank" rel="noopener">{nav.cta}</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    gap: 2rem;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+  .brand:hover { text-decoration: none; }
+  .brand-name {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-primary);
+  }
+  .brand-sub {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+  .main-nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .main-nav a {
+    color: var(--color-text-soft);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .main-nav a:hover { color: var(--color-primary); }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .lang-switch {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+  }
+  .lang-switch a {
+    color: var(--color-text-muted);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+  .lang-switch a.active {
+    color: var(--color-primary);
+    background: var(--color-bg-muted);
+    font-weight: 600;
+  }
+  @media (max-width: 900px) {
+    .main-nav { display: none; }
+  }
+</style>

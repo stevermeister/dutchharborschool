@@ -1,0 +1,64 @@
+---
+export interface Props {
+  name: string;
+  text: string;
+  level?: string;
+  date?: string;
+}
+const { name, text, level, date } = Astro.props;
+---
+<article class="review" itemscope itemtype="https://schema.org/Review">
+  <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" style="display:none">
+    <meta itemprop="ratingValue" content="5" />
+    <meta itemprop="bestRating" content="5" />
+  </div>
+  <blockquote itemprop="reviewBody">{text}</blockquote>
+  <footer>
+    <cite itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <span itemprop="name">{name}</span>
+    </cite>
+    {level && <span class="level">{level}</span>}
+    {date && <time itemprop="datePublished" datetime={date}>{date}</time>}
+  </footer>
+</article>
+
+<style>
+  .review {
+    background: var(--color-bg-soft);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    border-left: 4px solid var(--color-primary);
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  blockquote {
+    margin: 0 0 1rem;
+    font-style: italic;
+    color: var(--color-text);
+    line-height: 1.6;
+    flex: 1;
+  }
+  footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+  }
+  cite {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+  .level {
+    background: var(--color-accent);
+    color: var(--color-text);
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  time { color: var(--color-text-muted); font-size: 0.8125rem; }
+</style>

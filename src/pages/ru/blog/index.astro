@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog-ru', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const title = 'Блог об изучении нидерландского языка | Dutch Harbor School';
+const description = 'Статьи, советы и гиды об изучении нидерландского языка, подготовке к inburgering, NT2, жизни в Нидерландах.';
+
+const formatDate = (date: Date) => date.toLocaleDateString('ru-RU', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+<BaseLayout title={title} description={description} lang="ru">
+  <section>
+    <div class="container container--narrow">
+      <h1>Блог</h1>
+      <p class="lede">Всё, что нужно знать об изучении нидерландского, жизни в Нидерландах и подготовке к экзаменам</p>
+
+      {posts.length === 0 ? (
+        <p class="empty">Скоро появятся первые статьи.</p>
+      ) : (
+        <div class="posts">
+          {posts.map(post => (
+            <article class="post-card">
+              <h2><a href={`/ru/blog/${post.slug}/`}>{post.data.title}</a></h2>
+              <time datetime={post.data.publishDate.toISOString()}>{formatDate(post.data.publishDate)}</time>
+              <p>{post.data.description}</p>
+              <div class="tags">
+                {post.data.tags.map(tag => <span class="tag">#{tag}</span>)}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h1 { text-align: center; }
+  .lede { text-align: center; color: var(--color-text-soft); font-size: 1.125rem; margin-bottom: 3rem; }
+  .empty { text-align: center; color: var(--color-text-muted); padding: 3rem 0; }
+  .posts { display: flex; flex-direction: column; gap: 1.5rem; }
+  .post-card { background: var(--color-bg-soft); padding: 1.75rem; border-radius: var(--radius-md); border-left: 4px solid var(--color-primary); }
+  .post-card h2 { margin: 0 0 0.5rem; font-size: 1.5rem; }
+  .post-card h2 a { color: var(--color-text); }
+  .post-card h2 a:hover { color: var(--color-primary); text-decoration: none; }
+  .post-card time { font-size: 0.875rem; color: var(--color-text-muted); }
+  .post-card p { margin: 1rem 0; color: var(--color-text-soft); }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag { font-size: 0.8125rem; color: var(--color-primary); background: white; padding: 0.25rem 0.625rem; border-radius: 4px; border: 1px solid var(--color-border); }
+</style>

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'Как проходит обучение — Онлайн курсы нидерландского | Dutch Harbor';
+const description = 'Как проходят занятия: Google Meet, группы до 8 студентов, онлайн-платформа с материалами, Telegram для общения. Удобный формат для любого устройства.';
+---
+<BaseLayout title={title} description={description} lang="ru">
+  <section>
+    <div class="container container--narrow">
+      <h1>Как это происходит</h1>
+      <p class="lede">
+        Обучение нидерландскому проходит <strong>онлайн по видеосвязи (Google Meet)</strong> в маленьких группах с преподавателем. Учитесь из любого места и с любого устройства — компьютера или смартфона.
+      </p>
+
+      <h2>Что вы получаете</h2>
+      <ol class="features">
+        <li>
+          <strong>Удобный онлайн-формат занятий</strong>
+          <p>Занятия проходят в Google Meet. Никуда ехать не нужно — подключайтесь из дома, кафе или в дороге.</p>
+        </li>
+        <li>
+          <strong>Маленькие группы — до 8 человек</strong>
+          <p>Достаточно практики речи, личное внимание преподавателя, комфортная атмосфера обучения.</p>
+        </li>
+        <li>
+          <strong>Современные методики</strong>
+          <p>Сочетание коммуникативного и грамматического подходов — обучение одновременно интересное и продуктивное.</p>
+        </li>
+        <li>
+          <strong>Доступ к онлайн-платформе</strong>
+          <p>Все материалы занятий, домашние задания, аудио и грамматика — в одном месте, доступно 24/7.</p>
+        </li>
+        <li>
+          <strong>Telegram-группа</strong>
+          <p>Основной канал для общения, домашних заданий, важных обновлений и поддержки между занятиями.</p>
+        </li>
+      </ol>
+
+      <div class="cta-block">
+        <a href="https://forms.gle/your-form-id" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Записаться на пробный урок</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h1 { text-align: center; }
+  .lede { text-align: center; font-size: 1.1875rem; color: var(--color-text-soft); margin-bottom: 2rem; }
+  h2 { margin-top: 3rem; text-align: center; }
+  .features { list-style: none; counter-reset: features; padding: 0; margin: 2rem 0; }
+  .features li { counter-increment: features; background: var(--color-bg-soft); border-radius: var(--radius-md); padding: 1.5rem 1.5rem 1.5rem 4rem; margin-bottom: 1rem; position: relative; }
+  .features li::before { content: counter(features); position: absolute; left: 1rem; top: 1.25rem; width: 2rem; height: 2rem; background: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  .features strong { display: block; font-size: 1.0625rem; color: var(--color-primary); margin-bottom: 0.25rem; }
+  .features p { margin: 0; color: var(--color-text-soft); }
+  .cta-block { text-align: center; margin-top: 2.5rem; }
+</style>
