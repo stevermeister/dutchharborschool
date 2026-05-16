@@ -74,3 +74,19 @@ GitHub Actions автоматично деплоїть на GitHub Pages при 
 3. **Додати favicon.png та apple-touch-icon.png** у `public/`
 4. **Додати og-default.jpg** у `public/images/` (рекомендовано 1200×630px)
 5. **Перенести існуючі картинки** з `wp-content/uploads/` у `public/images/`
+
+## GA4 Conversion Setup
+
+After deploying, configure GA4 to mark the following events as conversions:
+
+1. Go to Google Analytics → Admin → Events
+2. Wait 24-48 hours after deploy for events to appear automatically (or trigger them manually first by clicking a CTA on the live site with cookie consent granted)
+3. Find these events in the list:
+   - `cta_click` (with parameter `cta_location`)
+   - `form_submit`
+4. For each, toggle "Mark as conversion" to ON
+5. (Optional) Create a custom dimension for `cta_location` in Admin → Custom definitions → Custom dimensions → Create
+
+For `form_submit` tracking to work, Maryna needs to edit the Google Form confirmation message to include a link back to the site:
+- Open the Google Form → Settings → Presentation → "Confirmation message"
+- Add: "Дякуємо! Незабаром зв'яжемося з вами. [Повернутися на сайт](https://dutchharborschool.nl/?form_submitted=true)"

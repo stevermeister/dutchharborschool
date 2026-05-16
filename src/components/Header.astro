@@ -45,7 +45,7 @@ const ctaUrl = 'https://docs.google.com/forms/d/1-nxtympBr8T6kF29M-NKNugu0WjzTKZ
         <a href="/" class={lang === 'uk' ? 'active' : ''} hreflang="uk">UA</a>
         <a href="/ru/" class={lang === 'ru' ? 'active' : ''} hreflang="ru">RU</a>
       </div>
-      <a href={ctaUrl} class="btn btn--primary" target="_blank" rel="noopener">{nav.cta}</a>
+      <a href={ctaUrl} class="btn btn--primary" target="_blank" rel="noopener" data-event="cta_click" data-cta-location="header">{nav.cta}</a>
     </div>
   </div>
 </header>
