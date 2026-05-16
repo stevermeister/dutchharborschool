@@ -341,11 +341,14 @@ const ctaUrl = 'https://docs.google.com/forms/d/1-nxtympBr8T6kF29M-NKNugu0WjzTKZ
     }
     .hero-content h1 { font-size: clamp(1.75rem, 6vw, 2.5rem); }
     .hero-cta { justify-content: center; }
-    .hero-illustration { max-width: 480px; margin: 0 auto; order: -1; }
+    .hero-illustration { max-width: 360px; margin: 0 auto; }
+    .hero-illustration img { max-height: 300px; width: auto; object-fit: contain; margin: 0 auto; }
     .values-grid {
       grid-template-columns: 1fr;
       gap: 2rem;
     }
-    .values-illustration { order: -1; }
+  }
+  @media (max-width: 640px) {
+    .price-card { padding: 1.5rem 1.25rem; }
   }
 </style>
