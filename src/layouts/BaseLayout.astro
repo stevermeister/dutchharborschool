@@ -142,6 +142,49 @@ const orgSchema = {
     gtag('set', 'developer_id.dZTNiMT', true);
     gtag('config', 'GT-T53NB9W');
   </script>
+
+  <!-- CTA click tracking — respects Consent Mode v2 automatically -->
+  <script is:inline>
+    document.addEventListener('click', function(e) {
+      var target = e.target.closest('[data-event]');
+      if (!target) return;
+      var eventName = target.getAttribute('data-event');
+      var ctaLocation = target.getAttribute('data-cta-location') || 'unknown';
+      var lang = document.documentElement.lang || 'unknown';
+      if (typeof gtag === 'function') {
+        gtag('event', eventName, {
+          cta_location: ctaLocation,
+          language: lang,
+          page_path: window.location.pathname,
+          transport_type: 'beacon'
+        });
+      }
+    }, { passive: true, capture: true });
+  </script>
+
+  <!-- form_submit tracking via ?form_submitted=true query parameter -->
+  <script is:inline>
+    (function() {
+      if (window.location.search.indexOf('form_submitted=true') === -1) return;
+      function fireSubmit() {
+        if (typeof gtag === 'function') {
+          gtag('event', 'form_submit', {
+            page_path: window.location.pathname,
+            language: document.documentElement.lang || 'unknown',
+            transport_type: 'beacon'
+          });
+        }
+        if (history.replaceState) {
+          history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+        }
+      }
+      if (document.readyState === 'complete') {
+        fireSubmit();
+      } else {
+        window.addEventListener('load', fireSubmit, { once: true });
+      }
+    })();
+  </script>
 </head>
 <body>
   <Header lang={lang} />
