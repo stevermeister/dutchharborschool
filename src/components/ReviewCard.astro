@@ -7,22 +7,16 @@ export interface Props {
   photo?: string;
 }
 const { name, text, level, date, photo } = Astro.props;
-const absolutePhotoUrl = photo ? `https://dutchharborschool.nl${photo}` : undefined;
 ---
-<article class="review" itemscope itemtype="https://schema.org/Review">
-  <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" style="display:none">
-    <meta itemprop="ratingValue" content="5" />
-    <meta itemprop="bestRating" content="5" />
-  </div>
-  <blockquote itemprop="reviewBody">{text}</blockquote>
+<article class="review">
+  <blockquote>{text}</blockquote>
   <footer>
     {photo && <img src={photo} alt={name} class="avatar" width="56" height="56" loading="lazy" />}
-    <cite itemprop="author" itemscope itemtype="https://schema.org/Person">
-      {absolutePhotoUrl && <meta itemprop="image" content={absolutePhotoUrl} />}
-      <span itemprop="name">{name}</span>
+    <cite>
+      <span>{name}</span>
     </cite>
     {level && <span class="level">{level}</span>}
-    {date && <time itemprop="datePublished" datetime={date}>{date}</time>}
+    {date && <time datetime={date}>{date}</time>}
   </footer>
 </article>
 
