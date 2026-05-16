@@ -9,60 +9,42 @@ const personSchema = {
   '@type': 'Person',
   name: 'Maryna Suvorova',
   jobTitle: 'Преподаватель нидерландского языка',
-  image: 'https://dutchharborschool.nl/images/maryna/maryna-1.jpg',
   worksFor: { '@type': 'EducationalOrganization', name: 'Dutch Harbor School' },
   alumniOf: { '@type': 'CollegeOrUniversity', name: 'Харьковский национальный университет имени В. Н. Каразина' },
   knowsLanguage: ['uk', 'ru', 'nl', 'en'],
 };
 ---
-<BaseLayout title={title} description={description} lang="ru" ogImage="/images/maryna/maryna-1.jpg" schema={personSchema}>
+<BaseLayout title={title} description={description} lang="ru" schema={personSchema}>
   <section>
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-photos">
-          <img src="/images/maryna/maryna-1.jpg" alt="Maryna Suvorova — преподаватель нидерландского" class="photo-main" width="300" height="300" />
-          <img src="/images/maryna/maryna-3.jpg" alt="Марина на уроке" class="photo-small" width="300" height="300" loading="lazy" />
-          <img src="/images/maryna/maryna-4.jpg" alt="Марина в свободное время" class="photo-small" width="300" height="300" loading="lazy" />
-        </div>
-        <div class="about-text">
-          <h1>Обо мне</h1>
-          <p class="greeting">Привет, давайте знакомиться!</p>
-          <p>
-            Меня зовут <strong>Марина Суворова</strong>, и я основательница Dutch Harbor School.
-          </p>
-          <ul class="bio">
-            <li>🎓 Имею педагогическое образование <strong>Харьковского национального университета имени В. Н. Каразина</strong>, факультет иностранных языков</li>
-            <li>📚 Более <strong>12 лет опыта</strong> преподавания иностранных языков</li>
-            <li>✨ Придерживаюсь <strong>авторской методики</strong>, объединяющей коммуникативный и грамматический подходы</li>
-            <li>🏆 Моим главным достижением являются знания и успехи моих студентов</li>
-            <li>🌍 Владею <strong>4 языками</strong> кроме 2 родных</li>
-            <li>✈️ Люблю путешествовать в далёкие страны и изучать культуры мира</li>
-          </ul>
-          <p class="mission">
-            Мечтаю влюбить людей в изучение иностранных языков, потому что за годы преподавательской практики я видела, насколько знание языка может <strong>трансформировать жизнь</strong> и открывать новые возможности.
-          </p>
-          <div class="cta-block">
-            <a href="https://forms.gle/your-form-id" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Записаться на пробный урок</a>
-          </div>
-        </div>
+    <div class="container container--narrow">
+      <h1>Обо мне</h1>
+      <p class="greeting">Привет, давайте знакомиться!</p>
+      <p>
+        Меня зовут <strong>Марина Суворова</strong>, и я основательница Dutch Harbor School.
+      </p>
+      <ul class="bio">
+        <li>🎓 Имею педагогическое образование <strong>Харьковского национального университета имени В. Н. Каразина</strong>, факультет иностранных языков</li>
+        <li>📚 Более <strong>12 лет опыта</strong> преподавания иностранных языков</li>
+        <li>✨ Придерживаюсь <strong>авторской методики</strong>, объединяющей коммуникативный и грамматический подходы</li>
+        <li>🏆 Моим главным достижением являются знания и успехи моих студентов</li>
+        <li>🌍 Владею <strong>4 языками</strong> кроме 2 родных</li>
+        <li>✈️ Люблю путешествовать в далёкие страны и изучать культуры мира</li>
+      </ul>
+      <p class="mission">
+        Мечтаю влюбить людей в изучение иностранных языков, потому что за годы преподавательской практики я видела, насколько знание языка может <strong>трансформировать жизнь</strong> и открывать новые возможности.
+      </p>
+      <div class="cta-block">
+        <a href="https://docs.google.com/forms/d/1-nxtympBr8T6kF29M-NKNugu0WjzTKZ0hhRRLBM2gl4/viewform" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Записаться на пробный урок</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .about-grid { display: grid; grid-template-columns: 320px 1fr; gap: 3rem; align-items: start; }
-  .about-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; position: sticky; top: 100px; }
-  .photo-main { grid-column: 1 / -1; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
-  .photo-small { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
   .greeting { font-size: 1.25rem; color: var(--color-accent-dark); font-weight: 600; margin-top: 0.5rem; }
   .bio { list-style: none; padding: 0; margin: 2rem 0; }
   .bio li { padding: 0.875rem 0; border-bottom: 1px solid var(--color-border); font-size: 1.0625rem; }
   .bio li:last-child { border-bottom: none; }
   .mission { background: var(--color-bg-soft); padding: 1.5rem; border-radius: var(--radius-md); border-left: 4px solid var(--color-accent); font-size: 1.0625rem; margin: 2rem 0; }
   .cta-block { margin-top: 2.5rem; }
-  @media (max-width: 800px) {
-    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .about-photos { position: static; max-width: 380px; margin: 0 auto; }
-  }
 </style>

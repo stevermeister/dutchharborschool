@@ -9,7 +9,6 @@ const personSchema = {
   '@type': 'Person',
   name: 'Maryna Suvorova',
   jobTitle: 'Викладач нідерландської мови',
-  image: 'https://dutchharborschool.nl/images/maryna/maryna-1.jpg',
   worksFor: {
     '@type': 'EducationalOrganization',
     name: 'Dutch Harbor School',
@@ -21,17 +20,10 @@ const personSchema = {
   knowsLanguage: ['uk', 'ru', 'nl', 'en'],
 };
 ---
-<BaseLayout title={title} description={description} lang="uk" ogImage="/images/maryna/maryna-1.jpg" schema={personSchema}>
+<BaseLayout title={title} description={description} lang="uk" schema={personSchema}>
   <section>
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-photos">
-          <img src="/images/maryna/maryna-1.jpg" alt="Maryna Suvorova — викладач нідерландської" class="photo-main" width="300" height="300" />
-          <img src="/images/maryna/maryna-3.jpg" alt="Марина на уроці" class="photo-small" width="300" height="300" loading="lazy" />
-          <img src="/images/maryna/maryna-4.jpg" alt="Марина у вільний час" class="photo-small" width="300" height="300" loading="lazy" />
-        </div>
-        <div class="about-text">
-          <h1>Про мене</h1>
+    <div class="container container--narrow">
+      <h1>Про мене</h1>
           <p class="greeting">Привіт, давайте знайомитися!</p>
           <p>
             Мене звуть <strong>Марина Суворова</strong>, і я засновниця Dutch Harbor School.
@@ -47,46 +39,14 @@ const personSchema = {
           <p class="mission">
             Мрію закохати людей у вивчення іноземних мов, тому що за роки моєї викладацької практики я бачила, наскільки знання мови може <strong>трансформувати життя</strong> та відкривати нові можливості.
           </p>
-          <div class="cta-block">
-            <a href="https://forms.gle/your-form-id" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Записатися на пробний урок</a>
-          </div>
-        </div>
+      <div class="cta-block">
+        <a href="https://docs.google.com/forms/d/1-nxtympBr8T6kF29M-NKNugu0WjzTKZ0hhRRLBM2gl4/viewform" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Записатися на пробний урок</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .about-grid {
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
-  .about-photos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    position: sticky;
-    top: 100px;
-  }
-  .photo-main {
-    grid-column: 1 / -1;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-  }
-  .photo-small {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-  }
   .greeting {
     font-size: 1.25rem;
     color: var(--color-accent-dark);
@@ -113,8 +73,4 @@ const personSchema = {
     margin: 2rem 0;
   }
   .cta-block { margin-top: 2.5rem; }
-  @media (max-width: 800px) {
-    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .about-photos { position: static; max-width: 380px; margin: 0 auto; }
-  }
 </style>

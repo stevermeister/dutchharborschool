@@ -6,6 +6,7 @@ author: "Maryna Suvorova"
 tags: ["inburgering", "DUO", "экзамены", "интеграция"]
 image: "/images/blog/inburgering-2026.jpg"
 imageAlt: "Подготовка к интеграционному экзамену в Нидерландах"
+alternateSlug: "inburgering-2026-povnyj-gid"
 ---
 
 ## Что такое inburgeringsexamen
@@ -68,4 +69,4 @@ imageAlt: "Подготовка к интеграционному экзамен
 
 В нашей школе **Dutch Harbor School** мы ведём студентов с A0 до B1 в малых группах (6-8 человек), с регулярной обратной связью и фокусом на все четыре навыка — чтение, аудирование, письмо, говорение.
 
-Если хотите начать — [запишитесь на пробный урок](https://forms.gle/your-form-id).
+Если хотите начать — [запишитесь на пробный урок](https://docs.google.com/forms/d/1-nxtympBr8T6kF29M-NKNugu0WjzTKZ0hhRRLBM2gl4/viewform).

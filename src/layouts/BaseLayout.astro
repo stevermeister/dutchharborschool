@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 
 export interface Props {
   title: string;
@@ -11,6 +12,7 @@ export interface Props {
   canonicalPath?: string;
   noindex?: boolean;
   schema?: object;
+  alternateLanguagePath?: string;
 }
 
 const {
@@ -21,6 +23,7 @@ const {
   canonicalPath,
   noindex = false,
   schema,
+  alternateLanguagePath,
 } = Astro.props;
 
 const siteUrl = 'https://dutchharborschool.nl';
@@ -28,11 +31,10 @@ const currentPath = canonicalPath ?? Astro.url.pathname;
 const canonicalURL = new URL(currentPath, siteUrl).href;
 const ogImageURL = new URL(ogImage, siteUrl).href;
 
-// Hreflang: соответствия UA <-> RU
-// Простая логика: /about-me/ <-> /ru/about-me/
 const isRu = currentPath.startsWith('/ru/');
-const ukVersion = isRu ? currentPath.replace(/^\/ru/, '') : currentPath;
-const ruVersion = isRu ? currentPath : `/ru${currentPath}`;
+const altPath = alternateLanguagePath ?? (isRu ? currentPath.replace(/^\/ru/, '') : `/ru${currentPath}`);
+const ukVersion = isRu ? altPath : currentPath;
+const ruVersion = isRu ? currentPath : altPath;
 
 const ukURL = new URL(ukVersion, siteUrl).href;
 const ruURL = new URL(ruVersion, siteUrl).href;
@@ -104,13 +106,41 @@ const orgSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
   {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
-  <!-- Google Analytics 4 - ЗАМЕНИ G-XXXXXXXXXX на свой ID -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <!-- Google Tag (gtag.js) with Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GT-T53NB9W"></script>
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+
+    // Consent Mode v2: deny all by default until user consents
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+
+    // Apply saved consent if present (must run before gtag('config'))
+    try {
+      var saved = localStorage.getItem('dhs_consent');
+      if (saved) {
+        var parsed = JSON.parse(saved);
+        var now = Date.now();
+        if (parsed.timestamp && (now - parsed.timestamp) < 365 * 24 * 60 * 60 * 1000) {
+          gtag('consent', 'update', parsed.flags);
+        } else {
+          localStorage.removeItem('dhs_consent');
+        }
+      }
+    } catch (e) { /* ignore */ }
+
+    gtag('set', 'linker', { domains: ['dutchharborschool.nl'] });
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+    gtag('set', 'developer_id.dZTNiMT', true);
+    gtag('config', 'GT-T53NB9W');
   </script>
 </head>
 <body>
@@ -119,5 +149,6 @@ const orgSchema = {
     <slot />
   </main>
   <Footer lang={lang} />
+  <CookieBanner lang={lang} />
 </body>
 </html>

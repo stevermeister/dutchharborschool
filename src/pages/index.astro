@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ReviewCard from '../components/ReviewCard.astro';
+import { Image } from 'astro:assets';
+import heroImage from '../assets/dutch-flag-girl.png';
+import smallGroupsImage from '../assets/small-groups.png';
 
 const title = 'Курси нідерландської онлайн для українців | Dutch Harbor School';
 const description = 'Вивчайте нідерландську з україномовним викладачем. Онлайн-групи 6-8 осіб, 2 заняття на тиждень, 65€/міс. Підготовка до inburgering та NT2. Запис на пробний урок.';
@@ -39,13 +42,13 @@ const courseSchema = {
 };
 
 const reviews = [
-  { name: 'Petrenko Anna', text: 'Навчання з Мариною було надзвичайно корисним та надихаючим досвідом. Методи навчання продумані та адаптовані до індивідуальних потреб, що дозволило мені досягнути реального прогресу.' },
-  { name: 'Валентина С.', text: 'Вивчаю нідерландську мову з Маріною. Дуже задоволена уроками. Цікаві вправи, не нудно на уроці, матеріал подається чітко, достатньо розмовної практики, група невелика 😊' },
-  { name: 'Oleksandr Kolomiiets', text: 'Чудовий курс нідерландської — рекомендую! Відмінна структура уроків, прекрасний викладач і цікаві матеріали зробили процес навчання легким і захоплюючим.' },
-  { name: 'Олена Яковенко', text: 'Я дуже рада, що приєдналася до цієї школи. Марина дуже професійно подає матеріал, все структуровано і зрозуміло. На уроці нам вдається закріпити попередні знання і пройти новий матеріал.' },
+  { name: 'Petrenko Anna', text: 'Навчання з Мариною було надзвичайно корисним та надихаючим досвідом. Методи навчання продумані та адаптовані до індивідуальних потреб, що дозволило мені досягнути реального прогресу.', photo: '/images/people/anna.jpg' },
+  { name: 'Валентина С.', text: 'Вивчаю нідерландську мову з Маріною. Дуже задоволена уроками. Цікаві вправи, не нудно на уроці, матеріал подається чітко, достатньо розмовної практики, група невелика 😊', photo: '/images/people/valentyna.jpg' },
+  { name: 'Oleksandr Kolomiiets', text: 'Чудовий курс нідерландської — рекомендую! Відмінна структура уроків, прекрасний викладач і цікаві матеріали зробили процес навчання легким і захоплюючим.', photo: '/images/people/oleksandr.jpg' },
+  { name: 'Олена Яковенко', text: 'Я дуже рада, що приєдналася до цієї школи. Марина дуже професійно подає матеріал, все структуровано і зрозуміло. На уроці нам вдається закріпити попередні знання і пройти новий матеріал.', photo: '/images/people/olena.jpg' },
 ];
 
-const ctaUrl = 'https://forms.gle/your-form-id';
+const ctaUrl = 'https://docs.google.com/forms/d/1-nxtympBr8T6kF29M-NKNugu0WjzTKZ0hhRRLBM2gl4/viewform';
 ---
 <BaseLayout title={title} description={description} lang="uk" ogImage="/images/hero/dutch-flag-girl.png" schema={courseSchema}>
 
@@ -63,11 +66,13 @@ const ctaUrl = 'https://forms.gle/your-form-id';
         </div>
       </div>
       <div class="hero-illustration">
-        <img
-          src="/images/hero/dutch-flag-girl.png"
+        <Image
+          src={heroImage}
           alt="Дівчина з волоссям кольорів голландського прапора за ноутбуком — символ Dutch Harbor School"
-          width="1024"
-          height="585"
+          widths={[480, 768, 1024]}
+          sizes="(max-width: 900px) 480px, 50vw"
+          formats={['avif', 'webp']}
+          fallbackFormat="png"
           loading="eager"
           fetchpriority="high"
         />
@@ -110,11 +115,13 @@ const ctaUrl = 'https://forms.gle/your-form-id';
           </div>
         </div>
         <div class="values-illustration">
-          <img
-            src="/images/small-groups.png"
+          <Image
+            src={smallGroupsImage}
             alt="Ілюстрація онлайн-уроку нідерландської у малій групі"
-            width="768"
-            height="768"
+            widths={[320, 480, 768]}
+            sizes="(max-width: 900px) 320px, 480px"
+            formats={['avif', 'webp']}
+            fallbackFormat="png"
             loading="lazy"
           />
         </div>
@@ -127,7 +134,7 @@ const ctaUrl = 'https://forms.gle/your-form-id';
     <div class="container">
       <h2>Що кажуть студенти</h2>
       <div class="reviews-grid">
-        {reviews.map(r => <ReviewCard name={r.name} text={r.text} />)}
+        {reviews.map(r => <ReviewCard name={r.name} text={r.text} photo={r.photo} />)}
       </div>
     </div>
   </section>

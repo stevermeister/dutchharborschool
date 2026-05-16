@@ -10,6 +10,7 @@ const blogSchema = z.object({
   image: z.string().optional(),
   imageAlt: z.string().optional(),
   draft: z.boolean().default(false),
+  alternateSlug: z.string().optional(),
 });
 
 const blogUk = defineCollection({

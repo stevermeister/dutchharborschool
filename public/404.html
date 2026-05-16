@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сторінку не знайдено | Dutch Harbor School</title>
+  <meta name="robots" content="noindex">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+           background: #fdfaf6; color: #1f2937; margin: 0;
+           min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .wrap { max-width: 540px; text-align: center; padding: 2rem; }
+    h1 { font-size: 4rem; margin: 0; color: #1e3a8a; }
+    p { color: #4b5563; margin: 1rem 0 2rem; }
+    a { display: inline-block; background: #1e3a8a; color: white;
+        padding: 0.875rem 2rem; border-radius: 12px; text-decoration: none;
+        font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>404</h1>
+    <p id="message">Сторінку не знайдено. Перенаправляємо на головну…</p>
+    <a href="/" id="home-link">На головну</a>
+  </div>
+  <script>
+    (function() {
+      var path = window.location.pathname;
+      var decoded;
+      try { decoded = decodeURIComponent(path); } catch(e) { decoded = path; }
+
+      var redirects = {
+        '/about-me/index.html': '/about-me/',
+        '/about-school/index.html': '/about-school/',
+        '/faq/index.html': '/faq/',
+        '/how-it-happens/index.html': '/how-it-happens/',
+        '/privacy-policy/index.html': '/privacy-policy/',
+        '/index.html': '/',
+
+        '/ру/главная/': '/ru/',
+        '/ру/главная/index.html': '/ru/',
+        '/ру/о-школе/': '/ru/about-school/',
+        '/ру/о-школе/index.html': '/ru/about-school/',
+        '/ру/обо-мне/': '/ru/about-me/',
+        '/ру/обо-мне/index.html': '/ru/about-me/',
+        '/ру/как-все-происходит/': '/ru/how-it-happens/',
+        '/ру/как-все-происходит/index.html': '/ru/how-it-happens/',
+        '/ру/ответы-на-вопросы/': '/ru/faq/',
+        '/ру/ответы-на-вопросы/index.html': '/ru/faq/',
+        '/ру/политика-конфиденциальности/': '/ru/privacy-policy/',
+        '/ру/политика-конфиденциальности/index.html': '/ru/privacy-policy/',
+      };
+
+      var target = redirects[path] || redirects[decoded];
+
+      if (!target && path.endsWith('/index.html')) {
+        var stripped = path.slice(0, -('index.html'.length));
+        target = redirects[stripped] || stripped;
+      }
+
+      if (target && target !== path) {
+        window.location.replace(target);
+      }
+    })();
+  </script>
+</body>
+</html>

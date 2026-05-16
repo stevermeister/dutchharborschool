@@ -14,6 +14,13 @@ interface Props { post: CollectionEntry<'blog-ru'>; }
 const { post } = Astro.props;
 const { Content } = await post.render();
 
+let alternateLanguagePath: string | undefined;
+if (post.data.alternateSlug) {
+  const ukPosts = await getCollection('blog-uk', ({ data }) => !data.draft);
+  const match = ukPosts.find(p => p.slug === post.data.alternateSlug);
+  if (match) alternateLanguagePath = `/blog/${match.slug}/`;
+}
+
 const formatDate = (date: Date) => date.toLocaleDateString('ru-RU', {
   year: 'numeric', month: 'long', day: 'numeric',
 });
@@ -42,6 +49,7 @@ const articleSchema = {
   lang="ru"
   ogImage={post.data.image}
   schema={articleSchema}
+  alternateLanguagePath={alternateLanguagePath}
 >
   <article>
     <div class="container container--narrow">
@@ -72,7 +80,7 @@ const articleSchema = {
       <aside class="post-cta">
         <h3>Хотите быстрее освоить нидерландский?</h3>
         <p>Записывайтесь на пробный урок в Dutch Harbor School — группы 6-8 человек, русскоязычный преподаватель, 65€ в месяц.</p>
-        <a href="https://forms.gle/your-form-id" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Записаться на пробный урок</a>
+        <a href="https://docs.google.com/forms/d/1-nxtympBr8T6kF29M-NKNugu0WjzTKZ0hhRRLBM2gl4/viewform" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Записаться на пробный урок</a>
       </aside>
     </div>
   </article>
