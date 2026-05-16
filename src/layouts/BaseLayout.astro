@@ -1,0 +1,154 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  lang?: 'uk' | 'ru';
+  ogImage?: string;
+  canonicalPath?: string;
+  noindex?: boolean;
+  schema?: object;
+  alternateLanguagePath?: string;
+}
+
+const {
+  title,
+  description,
+  lang = 'uk',
+  ogImage = '/images/og-default.jpg',
+  canonicalPath,
+  noindex = false,
+  schema,
+  alternateLanguagePath,
+} = Astro.props;
+
+const siteUrl = 'https://dutchharborschool.nl';
+const currentPath = canonicalPath ?? Astro.url.pathname;
+const canonicalURL = new URL(currentPath, siteUrl).href;
+const ogImageURL = new URL(ogImage, siteUrl).href;
+
+const isRu = currentPath.startsWith('/ru/');
+const altPath = alternateLanguagePath ?? (isRu ? currentPath.replace(/^\/ru/, '') : `/ru${currentPath}`);
+const ukVersion = isRu ? altPath : currentPath;
+const ruVersion = isRu ? currentPath : altPath;
+
+const ukURL = new URL(ukVersion, siteUrl).href;
+const ruURL = new URL(ruVersion, siteUrl).href;
+
+// Базовая schema организации - всегда есть
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOrganization',
+  name: 'Dutch Harbor School',
+  url: siteUrl,
+  logo: `${siteUrl}/images/logo.png`,
+  description: 'Школа нідерландської мови онлайн для україно- та російськомовних студентів',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'NL',
+  },
+  founder: {
+    '@type': 'Person',
+    name: 'Maryna Suvorova',
+  },
+  sameAs: [
+    'https://t.me/Language_guru',
+    'https://www.instagram.com/dutch.harbor.school/',
+  ],
+};
+---
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="uk" href={ukURL} />
+  <link rel="alternate" hreflang="ru" href={ruURL} />
+  <link rel="alternate" hreflang="x-default" href={ukURL} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImageURL} />
+  <meta property="og:locale" content={lang === 'uk' ? 'uk_UA' : 'ru_RU'} />
+  <meta property="og:site_name" content="Dutch Harbor School" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageURL} />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+  {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+
+  <!-- Google Tag (gtag.js) with Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GT-T53NB9W"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Consent Mode v2: deny all by default until user consents
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+
+    // Apply saved consent if present (must run before gtag('config'))
+    try {
+      var saved = localStorage.getItem('dhs_consent');
+      if (saved) {
+        var parsed = JSON.parse(saved);
+        var now = Date.now();
+        if (parsed.timestamp && (now - parsed.timestamp) < 365 * 24 * 60 * 60 * 1000) {
+          gtag('consent', 'update', parsed.flags);
+        } else {
+          localStorage.removeItem('dhs_consent');
+        }
+      }
+    } catch (e) { /* ignore */ }
+
+    gtag('set', 'linker', { domains: ['dutchharborschool.nl'] });
+    gtag('js', new Date());
+    gtag('set', 'developer_id.dZTNiMT', true);
+    gtag('config', 'GT-T53NB9W');
+  </script>
+</head>
+<body>
+  <Header lang={lang} />
+  <main>
+    <slot />
+  </main>
+  <Footer lang={lang} />
+  <CookieBanner lang={lang} />
+</body>
+</html>

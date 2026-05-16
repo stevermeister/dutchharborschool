@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Заборона на технічні штуки
+Disallow: /wp-content/
+Disallow: /wp-includes/
+Disallow: /wp-json/
+Disallow: /feed/
+Disallow: /comments/
+
+Sitemap: https://dutchharborschool.nl/sitemap-index.xml

@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReviewCard from '../../components/ReviewCard.astro';
+import { Image } from 'astro:assets';
+import heroImage from '../../assets/dutch-flag-girl.png';
+import smallGroupsImage from '../../assets/small-groups.png';
+
+const title = 'Курсы нидерландского онлайн для русскоязычных | Dutch Harbor School';
+const description = 'Учите нидерландский с русскоязычным преподавателем. Онлайн-группы 6-8 человек, 2 занятия в неделю, 65€/мес. Подготовка к inburgering и NT2. Запись на пробный урок.';
+
+const courseSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: 'Курсы нидерландского языка онлайн',
+  description: 'Онлайн курсы нидерландского для русскоязычных студентов. Малые группы, интерактивные занятия с опытным преподавателем.',
+  provider: {
+    '@type': 'EducationalOrganization',
+    name: 'Dutch Harbor School',
+    sameAs: 'https://dutchharborschool.nl',
+  },
+  inLanguage: 'ru',
+  teaches: 'Нидерландский язык',
+  educationalLevel: 'A0-B1',
+  hasCourseInstance: {
+    '@type': 'CourseInstance',
+    courseMode: 'online',
+    courseWorkload: 'PT2H',
+    instructor: { '@type': 'Person', name: 'Maryna Suvorova' },
+    offers: {
+      '@type': 'Offer',
+      price: '65',
+      priceCurrency: 'EUR',
+      description: '8 занятий (1 месяц, 2 раза в неделю)',
+    },
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    reviewCount: '4',
+    bestRating: '5',
+  },
+};
+
+const reviews = [
+  { name: 'Petrenko Anna', text: 'Обучение с Мариной — невероятно полезный и вдохновляющий опыт. Методики продуманы и адаптированы под индивидуальные потребности, что позволило достичь реального прогресса.', photo: '/images/people/anna.jpg' },
+  { name: 'Валентина С.', text: 'Изучаю нидерландский с Мариной. Очень довольна уроками. Интересные упражнения, не скучно, материал подаётся чётко, достаточно разговорной практики, группа небольшая 😊', photo: '/images/people/valentyna.jpg' },
+  { name: 'Oleksandr Kolomiiets', text: 'Отличный курс нидерландского — рекомендую! Прекрасная структура уроков, отличный преподаватель и интересные материалы сделали процесс обучения лёгким и увлекательным.', photo: '/images/people/oleksandr.jpg' },
+  { name: 'Олена Яковенко', text: 'Очень рада, что присоединилась к этой школе. Марина очень профессионально подаёт материал, всё структурировано и понятно. На уроке успеваем закрепить предыдущие знания и пройти новый материал.', photo: '/images/people/olena.jpg' },
+];
+
+const ctaUrl = 'https://docs.google.com/forms/d/1-nxtympBr8T6kF29M-NKNugu0WjzTKZ0hhRRLBM2gl4/viewform';
+---
+<BaseLayout title={title} description={description} lang="ru" ogImage="/images/hero/dutch-flag-girl.png" schema={courseSchema}>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1>Школа нидерландского языка</h1>
+        <p class="lede">
+          Онлайн с русскоязычным преподавателем. Малые группы 6-8 человек, гибкое расписание, от A0 до B1 — для работы, интеграции и экзаменов inburgering / NT2.
+        </p>
+        <div class="hero-cta">
+          <a href={ctaUrl} class="btn btn--primary btn--lg" target="_blank" rel="noopener">Записаться</a>
+          <a href="#price" class="btn-link">65€ за 8 занятий →</a>
+        </div>
+      </div>
+      <div class="hero-illustration">
+        <Image
+          src={heroImage}
+          alt="Девушка с волосами цветов голландского флага за ноутбуком — символ Dutch Harbor School"
+          widths={[480, 768, 1024]}
+          sizes="(max-width: 900px) 480px, 50vw"
+          formats={['avif', 'webp']}
+          fallbackFormat="png"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="intro">
+    <div class="container container--narrow">
+      <h2>Изучение нидерландского — это…</h2>
+      <ul class="check-list">
+        <li><strong>Долго?</strong> <span>— возможно</span></li>
+        <li><strong>Сложно?</strong> <span>— немного есть</span></li>
+        <li><strong>Страшно начать говорить с носителями?</strong> <span>— очень</span></li>
+        <li><strong>Требует стойкости и мотивации?</strong> <span>— 100%</span></li>
+      </ul>
+      <p class="intro-conclusion">
+        Но со мной это будет <strong>интересно и нескучно</strong>! Почти все студенты сталкиваются с этими трудностями. Моя цель — сопровождать, направлять и помогать вам на этом пути. Я сделаю изучение языка приятнее и буду поощрять вас изучать ещё больше.
+      </p>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="container">
+      <div class="values-grid">
+        <div class="values-text">
+          <div class="value">
+            <h3>💻 Онлайн обучение</h3>
+            <p>Обучение должно быть доступным, удобным и эффективным. Dutch Harbor School предлагает изучение нидерландского онлайн по видеосвязи с профессиональным преподавателем — учитесь из любого места и не тратьте время на дорогу.</p>
+          </div>
+          <div class="value">
+            <h3>👥 Маленькие группы</h3>
+            <p>Обучение в группах 6-8 студентов даёт возможность каждому получить личное внимание и возможность взаимодействия. Это обеспечивает эффективную коммуникацию и понимание индивидуальных потребностей каждого.</p>
+          </div>
+          <div class="value">
+            <h3>📚 Всё в одном месте</h3>
+            <p>Наши студенты имеют доступ к учебной онлайн-платформе — центральному месту хранения всех материалов и мощному инструменту для углубления знаний.</p>
+          </div>
+        </div>
+        <div class="values-illustration">
+          <Image
+            src={smallGroupsImage}
+            alt="Иллюстрация онлайн-урока нидерландского в малой группе"
+            widths={[320, 480, 768]}
+            sizes="(max-width: 900px) 320px, 480px"
+            formats={['avif', 'webp']}
+            fallbackFormat="png"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews-section">
+    <div class="container">
+      <h2>Что говорят студенты</h2>
+      <div class="reviews-grid">
+        {reviews.map(r => <ReviewCard name={r.name} text={r.text} photo={r.photo} />)}
+      </div>
+    </div>
+  </section>
+
+  <section id="price" class="price-section">
+    <div class="container container--narrow">
+      <h2>Сколько стоит?</h2>
+      <div class="price-card">
+        <div class="price-tag">
+          <span class="price-amount">65€</span>
+          <span class="price-period">за 8 занятий (~1 месяц)</span>
+        </div>
+        <ul class="price-includes">
+          <li>✓ 2 занятия в неделю по 60 минут</li>
+          <li>✓ Группа до 8 студентов</li>
+          <li>✓ Доступ к онлайн-платформе</li>
+          <li>✓ Домашние задания с аудио, чтением и грамматикой</li>
+          <li>✓ Telegram-группа для общения</li>
+          <li>✓ <strong>Полный возврат денег</strong>, если после первого урока курс не подойдёт</li>
+        </ul>
+        <a href={ctaUrl} class="btn btn--primary btn--lg" target="_blank" rel="noopener">Записаться</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="container container--narrow">
+      <h2>Сделай 1-й шаг к новым возможностям!</h2>
+      <a href={ctaUrl} class="btn btn--accent btn--lg" target="_blank" rel="noopener">Записаться</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero { padding: 3rem 0 4rem; background: linear-gradient(180deg, var(--color-bg-soft) 0%, var(--color-bg) 100%); overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .hero-content h1 { font-size: clamp(2rem, 4.5vw, 3.5rem); margin-bottom: 1.25rem; line-height: 1.05; }
+  .lede { font-size: 1.1875rem; color: var(--color-text-soft); margin-bottom: 2rem; line-height: 1.5; }
+  .hero-cta { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .btn-link { color: var(--color-primary); font-weight: 600; }
+  .hero-illustration img { width: 100%; height: auto; display: block; }
+
+  .intro h2 { text-align: center; margin-bottom: 2rem; }
+  .check-list { list-style: none; padding: 0; margin: 0 auto 2rem; max-width: 580px; }
+  .check-list li { padding: 0.75rem 1rem; border-bottom: 1px solid var(--color-border); font-size: 1.0625rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .check-list li span { color: var(--color-text-muted); }
+  .intro-conclusion { text-align: center; font-size: 1.125rem; color: var(--color-text-soft); max-width: 680px; margin: 2rem auto 0; }
+
+  .values { background: var(--color-bg-card); }
+  .values-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center; }
+  .values-text { display: flex; flex-direction: column; gap: 1.5rem; }
+  .value h3 { color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.25rem; }
+  .value p { color: var(--color-text-soft); margin: 0; }
+  .values-illustration img { width: 100%; height: auto; max-width: 480px; margin: 0 auto; display: block; }
+
+  .reviews-section { background: var(--color-bg-soft); }
+  .reviews-section h2 { text-align: center; margin-bottom: 3rem; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+  .price-section h2 { text-align: center; }
+  .price-card { background: var(--color-bg-card); border: 2px solid var(--color-primary); border-radius: var(--radius-lg); padding: 2.5rem; margin-top: 2rem; text-align: center; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+  .price-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(180deg, var(--color-dutch-red) 0%, var(--color-dutch-red) 33%, white 33%, white 66%, var(--color-dutch-blue) 66%, var(--color-dutch-blue) 100%); }
+  .price-tag { display: flex; flex-direction: column; align-items: center; margin-bottom: 2rem; margin-top: 0.5rem; }
+  .price-amount { font-size: 3.5rem; font-weight: 700; color: var(--color-primary); line-height: 1; }
+  .price-period { color: var(--color-text-muted); margin-top: 0.5rem; }
+  .price-includes { list-style: none; padding: 0; text-align: left; margin: 0 auto 2rem; max-width: 420px; }
+  .price-includes li { padding: 0.625rem 0; border-bottom: 1px solid var(--color-border); }
+  .price-includes li:last-child { border-bottom: none; }
+
+  .final-cta { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%); color: white; text-align: center; }
+  .final-cta h2 { color: white; margin-bottom: 2rem; }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .hero-content h1 { font-size: clamp(1.75rem, 6vw, 2.5rem); }
+    .hero-cta { justify-content: center; }
+    .hero-illustration { max-width: 480px; margin: 0 auto; order: -1; }
+    .values-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .values-illustration { order: -1; }
+  }
+</style>

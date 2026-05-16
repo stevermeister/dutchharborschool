@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'О преподавателе — Maryna Suvorova | Dutch Harbor School';
+const description = 'Maryna Suvorova — преподаватель нидерландского с более чем 12-летним опытом. Педагогическое образование Харьковского университета им. Каразина, авторская методика, 4 языка.';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Maryna Suvorova',
+  jobTitle: 'Преподаватель нидерландского языка',
+  worksFor: { '@type': 'EducationalOrganization', name: 'Dutch Harbor School' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Харьковский национальный университет имени В. Н. Каразина' },
+  knowsLanguage: ['uk', 'ru', 'nl', 'en'],
+};
+---
+<BaseLayout title={title} description={description} lang="ru" schema={personSchema}>
+  <section>
+    <div class="container container--narrow">
+      <h1>Обо мне</h1>
+      <p class="greeting">Привет, давайте знакомиться!</p>
+      <p>
+        Меня зовут <strong>Марина Суворова</strong>, и я основательница Dutch Harbor School.
+      </p>
+      <ul class="bio">
+        <li>🎓 Имею педагогическое образование <strong>Харьковского национального университета имени В. Н. Каразина</strong>, факультет иностранных языков</li>
+        <li>📚 Более <strong>12 лет опыта</strong> преподавания иностранных языков</li>
+        <li>✨ Придерживаюсь <strong>авторской методики</strong>, объединяющей коммуникативный и грамматический подходы</li>
+        <li>🏆 Моим главным достижением являются знания и успехи моих студентов</li>
+        <li>🌍 Владею <strong>4 языками</strong> кроме 2 родных</li>
+        <li>✈️ Люблю путешествовать в далёкие страны и изучать культуры мира</li>
+      </ul>
+      <p class="mission">
+        Мечтаю влюбить людей в изучение иностранных языков, потому что за годы преподавательской практики я видела, насколько знание языка может <strong>трансформировать жизнь</strong> и открывать новые возможности.
+      </p>
+      <div class="cta-block">
+        <a href="https://docs.google.com/forms/d/1-nxtympBr8T6kF29M-NKNugu0WjzTKZ0hhRRLBM2gl4/viewform" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Записаться на пробный урок</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .greeting { font-size: 1.25rem; color: var(--color-accent-dark); font-weight: 600; margin-top: 0.5rem; }
+  .bio { list-style: none; padding: 0; margin: 2rem 0; }
+  .bio li { padding: 0.875rem 0; border-bottom: 1px solid var(--color-border); font-size: 1.0625rem; }
+  .bio li:last-child { border-bottom: none; }
+  .mission { background: var(--color-bg-soft); padding: 1.5rem; border-radius: var(--radius-md); border-left: 4px solid var(--color-accent); font-size: 1.0625rem; margin: 2rem 0; }
+  .cta-block { margin-top: 2.5rem; }
+</style>
