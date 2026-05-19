@@ -6,14 +6,14 @@ const { lang } = Astro.props;
 
 const t = lang === 'uk' ? {
   title: 'Ми використовуємо cookies',
-  description: 'Цей сайт використовує cookies для аналітики (Google Analytics) — щоб ми могли покращувати курси та матеріали. Ваші дані анонімізовані.',
+  description: 'Цей сайт використовує cookies для аналітики (Google Analytics та Microsoft Clarity для запису сесій) — щоб ми могли покращувати курси та матеріали. Ваші дані анонімізовані.',
   accept: 'Прийняти всі',
   reject: 'Тільки необхідні',
   policy: 'Дізнатися більше',
   policyUrl: '/privacy-policy/',
 } : {
   title: 'Мы используем cookies',
-  description: 'Этот сайт использует cookies для аналитики (Google Analytics) — чтобы мы могли улучшать курсы и материалы. Ваши данные обезличены.',
+  description: 'Этот сайт использует cookies для аналитики (Google Analytics и Microsoft Clarity для записи сессий) — чтобы мы могли улучшать курсы и материалы. Ваши данные обезличены.',
   accept: 'Принять все',
   reject: 'Только необходимые',
   policy: 'Узнать больше',
@@ -76,6 +76,10 @@ const t = lang === 'uk' ? {
 
         if (typeof gtag === 'function') {
           gtag('consent', 'update', flags);
+        }
+
+        if (typeof clarity === 'function') {
+          clarity('consent', granted);
         }
 
         banner.classList.add('cookie-banner--hiding');
