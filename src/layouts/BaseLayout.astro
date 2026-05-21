@@ -141,30 +141,32 @@ const orgSchema = {
 
   <!-- Microsoft Clarity with GDPR consent integration -->
   <script is:inline>
+    // Determine consent state from localStorage BEFORE loading Clarity
+    var _clarityGranted = false;
+    try {
+      var _saved = localStorage.getItem('dhs_consent');
+      if (_saved) {
+        var _parsed = JSON.parse(_saved);
+        if (
+          _parsed.flags &&
+          _parsed.flags.analytics_storage === 'granted' &&
+          _parsed.timestamp &&
+          (Date.now() - _parsed.timestamp) < 365 * 24 * 60 * 60 * 1000
+        ) {
+          _clarityGranted = true;
+        }
+      }
+    } catch (e) { /* ignore */ }
+
+    // Load Clarity
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "wto9hlh91t");
 
-    // Default to no-consent until user accepts
-    clarity('consent', false);
-
-    // Apply saved consent if analytics was previously granted
-    try {
-      var _clarityConsent = localStorage.getItem('dhs_consent');
-      if (_clarityConsent) {
-        var _clarityParsed = JSON.parse(_clarityConsent);
-        if (
-          _clarityParsed.flags &&
-          _clarityParsed.flags.analytics_storage === 'granted' &&
-          _clarityParsed.timestamp &&
-          (Date.now() - _clarityParsed.timestamp) < 365 * 24 * 60 * 60 * 1000
-        ) {
-          clarity('consent', true);
-        }
-      }
-    } catch (e) { /* ignore */ }
+    // Single consent call with the correct value
+    clarity('consent', _clarityGranted);
   </script>
 
   <!-- CTA click tracking — respects Consent Mode v2 automatically -->
